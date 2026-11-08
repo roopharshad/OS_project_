@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-ivory text-charcoal font-sans antialiased;
+  }
+  h1, h2, h3, h4 { @apply font-serif; letter-spacing: -0.01em; }
+  code, pre { @apply font-mono; }
+}
+
+@layer components {
+  .section-card { @apply bg-white rounded-2xl border border-border shadow-card p-6; }
+  .eyebrow { @apply text-[11px] font-semibold text-olive uppercase tracking-[0.12em]; }
+  .btn-control {
+    @apply inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border text-sm font-medium
+           transition-colors duration-150 active:scale-[0.98];
+  }
+  .state-badge { @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-wide; }
+  .state-thinking { @apply bg-thinking text-[#2F5E80]; }
+  .state-hungry { @apply bg-hungry text-[#7A5410]; }
+  .state-eating { @apply bg-eating text-[#24583A]; }
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #E1DFD7; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #C9C7BC; }
+
+.code-block { font-size: 13px; line-height: 1.7; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "dining-philosophers",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Interactive Dining Philosophers simulator with semaphores and an online C runner",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node server/index.js",
+    "verify": "node scripts/verify-engine.mjs"
+  },
+  "dependencies": {
+    "framer-motion": "^11.3.19",
+    "lucide-react": "^0.414.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.40",
+    "tailwindcss": "^3.4.6",
+    "vite": "^5.3.4"
+  }
+}

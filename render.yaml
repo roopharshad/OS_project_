@@ -1,0 +1,15 @@
+# One-click deploy on Render (https://render.com): New → Blueprint → pick this repo.
+services:
+  - type: web
+    name: dining-philosophers
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /healthz
+    envVars:
+      - key: C_RUNNER_MAX_CONCURRENT
+        value: "3"
+      - key: C_RUNNER_RUNS_PER_MINUTE
+        value: "10"
+      - key: C_RUNNER_RUN_TIMEOUT_SEC
+        value: "60"
