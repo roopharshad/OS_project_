@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Users, Utensils, KeyRound, ArrowDown } from 'lucide-react';
+import { Play, Users, Utensils, KeyRound, Code2 } from 'lucide-react';
 import DiningTable from '../components/simulation/DiningTable';
 import { Sprig } from '../components/dashboard/Decor';
 import { PHI_STATE } from '../engine/simulationEngine';
@@ -19,7 +19,7 @@ const fade = (delay) => ({ initial: { opacity: 0, y: 14 }, animate: { opacity: 1
 // If the file is missing, the drawn table is shown instead.
 const HERO_PHOTO = '/overview-table.png';
 
-export default function Overview({ onStart }) {
+export default function Overview({ onStart, onOpenSource }) {
   const [photoOk, setPhotoOk] = useState(true);
   return (
     <section id="overview" data-section className="relative overflow-hidden scroll-mt-6 px-5 sm:px-8 xl:px-12 pt-20 lg:pt-16 pb-16">
@@ -66,10 +66,12 @@ export default function Overview({ onStart }) {
             >
               <Play size={16} fill="currentColor" /> START SIMULATION
             </button>
-            <a href="#concepts" onClick={(e) => { e.preventDefault(); document.getElementById('concepts')?.scrollIntoView({ behavior: 'smooth' }); }}
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-charcoal/60 hover:text-forest transition-colors">
-              Read the concepts first <ArrowDown size={14} />
-            </a>
+            <button
+              onClick={onOpenSource}
+              className="inline-flex items-center gap-2.5 rounded-xl border-2 border-forest bg-white px-7 py-[14px] text-[15px] font-semibold tracking-wide text-forest shadow-card hover:bg-eating/50 transition-colors active:scale-[0.98]"
+            >
+              <Code2 size={17} /> SOURCE CODE
+            </button>
           </motion.div>
         </div>
 

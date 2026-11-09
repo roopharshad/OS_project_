@@ -10,7 +10,7 @@ const DOT = {
   warning: '#C98A2E',
 };
 
-export default function ExecutionLog({ log, onClear, height = 'h-[320px]' }) {
+export default function ExecutionLog({ log, onClear, height = 'h-[320px]', className = '' }) {
   const boxRef = useRef(null);
 
   // Keep the newest entry in view without scrolling the whole page.
@@ -20,8 +20,8 @@ export default function ExecutionLog({ log, onClear, height = 'h-[320px]' }) {
   }, [log.length]);
 
   return (
-    <div className="bg-white border border-border rounded-2xl shadow-card flex flex-col">
-      <div className="flex items-center justify-between px-5 py-3.5 border-b border-border">
+    <div className={`bg-white border border-border rounded-2xl shadow-card flex flex-col ${className}`}>
+      <div className="flex items-center justify-between px-5 py-2.5 border-b border-border shrink-0">
         <div className="flex items-center gap-2">
           <ScrollText size={15} className="text-forest" />
           <h3 className="text-base text-charcoal">Execution Log</h3>

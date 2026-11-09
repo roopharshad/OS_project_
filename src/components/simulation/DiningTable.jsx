@@ -167,14 +167,14 @@ function Label({ i, st }) {
   );
 }
 
-export default function DiningTable({ phiStates, phases, algPhil, algLines = [], mutex, mutexHolder = null }) {
+export default function DiningTable({ phiStates, phases, algPhil, algLines = [], mutex, mutexHolder = null, className = '' }) {
   const { owner: owners, reserved } = forkView(phiStates, phases);
   const shown = phiStates.map((_, i) => (phases ? shownState(phiStates, phases, i) : phiStates[i]));
   const line = currentLine(algLines);
   const op = line ? ALG_TEXT[line] : null;
 
   return (
-    <svg viewBox={`0 0 ${SIZE} ${SIZE}`} className="w-full h-auto max-w-[640px] mx-auto select-none" role="img"
+    <svg viewBox={`0 0 ${SIZE} ${SIZE}`} className={className || 'w-full h-auto max-w-[640px] mx-auto select-none'} role="img"
       aria-label="Top view of a round table with five philosophers, five plates and five forks">
       <defs>
         <radialGradient id="wood" cx="50%" cy="45%" r="60%">

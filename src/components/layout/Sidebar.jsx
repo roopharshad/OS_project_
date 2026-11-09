@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
-  LayoutDashboard, PlayCircle, Activity, Workflow, BookOpen, FileCode2, BarChart3, Menu, X,
+  LayoutDashboard, PlayCircle, FileCode2, Menu, X,
 } from 'lucide-react';
 import { Sprig, Building } from '../dashboard/Decor';
 
@@ -18,11 +18,7 @@ function SidebarDecor() {
 export const NAV = [
   { id: 'overview', label: 'Overview', icon: LayoutDashboard },
   { id: 'simulation', label: 'Live Simulation', icon: PlayCircle },
-  { id: 'semaphore', label: 'Semaphore Monitor', icon: Activity },
-  { id: 'algorithm', label: 'Algorithm', icon: Workflow },
-  { id: 'concepts', label: 'Concepts & Learning', icon: BookOpen },
   { id: 'source', label: 'Source Code', icon: FileCode2 },
-  { id: 'statistics', label: 'Statistics & Results', icon: BarChart3 },
 ];
 
 function Brand({ compact = false }) {

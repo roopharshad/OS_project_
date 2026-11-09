@@ -11,7 +11,7 @@ function Row({ label, children }) {
   );
 }
 
-export default function SemaphoreMonitor({ state }) {
+export default function SemaphoreMonitor({ state, compact = false }) {
   const { mutex, mutexHolder, S, algLines, algPhil, semHistory, phiStates, phases } = state;
   const mainLine = algLines.find((k) => LINE_TEXT[k]);
   const forks = forkView(phiStates, phases);
@@ -22,8 +22,8 @@ export default function SemaphoreMonitor({ state }) {
     : phiStates.findIndex((s) => s === PHI_STATE.HUNGRY);
 
   return (
-    <div className="bg-white border border-border rounded-2xl shadow-card overflow-hidden">
-      <div className="flex items-center justify-between px-5 py-3.5 border-b border-border">
+    <div className={`bg-white border border-border rounded-2xl shadow-card overflow-hidden ${compact ? 'h-full flex flex-col' : ''}`}>
+      <div className={`flex items-center justify-between border-b border-border ${compact ? 'px-4 py-2' : 'px-5 py-3.5'}`}>
         <div className="flex items-center gap-2">
           <Activity size={15} className="text-forest" />
           <h3 className="text-base text-charcoal">Semaphore Monitor</h3>
@@ -31,9 +31,9 @@ export default function SemaphoreMonitor({ state }) {
         <span className="eyebrow">live</span>
       </div>
 
-      <div className="p-5 font-mono text-[12.5px] space-y-4">
+      <div className={`font-mono ${compact ? 'p-3 text-[11.5px] space-y-2 flex-1 min-h-0 overflow-hidden' : 'p-5 text-[12.5px] space-y-4'}`}>
         {/* mutex */}
-        <div className={`flex items-center gap-3 rounded-xl border px-3.5 py-3 transition-colors ${
+        <div className={`flex items-center gap-3 rounded-xl border px-3.5 ${compact ? 'py-1.5' : 'py-3'} transition-colors ${
           mutex === 1 ? 'bg-ivory border-border' : 'bg-hungry/60 border-amber-200'}`}>
           {mutex === 1 ? <Unlock size={15} className="text-forest" /> : <Lock size={15} className="text-amber-700" />}
           <span className="text-charcoal">mutex</span>
@@ -49,7 +49,7 @@ export default function SemaphoreMonitor({ state }) {
         {/* S[i] */}
         <div className="grid grid-cols-5 gap-2">
           {S.map((v, i) => (
-            <div key={i} className={`rounded-xl border text-center py-2.5 transition-colors ${
+            <div key={i} className={`rounded-xl border text-center ${compact ? 'py-1' : 'py-2.5'} transition-colors ${
               v > 0 ? 'bg-eating border-[#B9D8BF]' : waiting.includes(i) ? 'bg-hungry/50 border-amber-200' : 'bg-ivory border-border'}`}>
               <div className="text-[10.5px] text-charcoal/50">S[{i}]</div>
               <motion.div key={`${i}-${v}`} initial={{ scale: 1.3 }} animate={{ scale: 1 }} className="text-base font-semibold text-charcoal">
@@ -64,7 +64,7 @@ export default function SemaphoreMonitor({ state }) {
 
         {/* Forks: computed from the same data as the table, so they always match */}
         {/* One entry per philosopher (each uses two forks), so nobody is listed twice */}
-        <div className="rounded-xl border border-border bg-ivory/60 px-3.5 py-2.5 space-y-1.5">
+        <div className={`rounded-xl border border-border bg-ivory/60 px-3.5 ${compact ? 'py-1.5 space-y-1' : 'py-2.5 space-y-1.5'}`}>
           {phiStates.map((_, i) => {
             const L = leftForkOf(i), R = rightForkOf(i);
             if (forks.owner[L] === i && forks.owner[R] === i) {
@@ -99,7 +99,7 @@ export default function SemaphoreMonitor({ state }) {
         </div>
 
         {/* Status rows */}
-        <div className="rounded-xl border border-border bg-ivory/60 px-3.5 py-2 divide-y divide-border">
+        <div className={`rounded-xl border border-border bg-ivory/60 px-3.5 divide-y divide-border ${compact ? 'py-0.5 [&>div]:py-1' : 'py-2'}`}>
           <Row label="critical section">
             {mutexHolder !== null ? <span className="text-forest font-semibold">P{mutexHolder + 1} inside</span> : <span className="text-charcoal/40">empty</span>}
           </Row>
@@ -117,8 +117,8 @@ export default function SemaphoreMonitor({ state }) {
           </Row>
         </div>
 
-        {/* Recent operations */}
-        <div>
+        {/* Recent operations (the compact frame shows these in the execution log instead) */}
+        {!compact && <div>
           <div className="eyebrow font-sans mb-2">recent operations</div>
           <div className="rounded-xl border border-border bg-[#FBFAF7] px-3 py-2 h-[148px] overflow-hidden">
             {semHistory.length === 0 && <div className="text-charcoal/35 py-1">$ waiting for first operation…</div>}
@@ -131,12 +131,12 @@ export default function SemaphoreMonitor({ state }) {
               </div>
             ))}
           </div>
-        </div>
+        </div>}
 
-        <div className="grid grid-cols-2 gap-2 font-sans text-[11px] leading-snug">
+        {!compact && <div className="grid grid-cols-2 gap-2 font-sans text-[11px] leading-snug">
           <div className="rounded-lg bg-ivory px-3 py-2"><code className="font-mono text-[#7A5410] font-semibold">sem_wait(s)</code><p className="text-charcoal/55 mt-0.5">Decrements s. Blocks the caller while s is 0.</p></div>
           <div className="rounded-lg bg-ivory px-3 py-2"><code className="font-mono text-forest font-semibold">sem_post(s)</code><p className="text-charcoal/55 mt-0.5">Increments s and wakes one waiting thread.</p></div>
-        </div>
+        </div>}
       </div>
     </div>
   );
